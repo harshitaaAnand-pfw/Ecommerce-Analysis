@@ -1,0 +1,120 @@
+﻿@page
+@model EcommerceDataAnalysisToolClient.Pages.EcommerceDataAnalysisTool.CategoryBySalesModel
+@{
+    ViewData["Title"] = "Category By Sales";
+}
+@using System.Globalization
+<div class="card">
+    <h2>Most Sold Category</h2>
+    <form>
+        <label>
+            <input type="radio" name="option" value="year" checked onchange="showBlock()"> Year
+        </label>
+        <label>
+            <input type="radio" name="option" value="month" onchange="showBlock()"> Month
+        </label>
+    </form>
+
+    <div id="yearBlock" style="display: block;">
+        <form method="get" action="" class="form" id="year-form">
+            <!-- Modified the id attribute value -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-3">
+                    <div class="form-group">
+                        <select class="form-control text-center" id="year" name="year">
+                            <option value="">--Select Year--</option>
+                            @for (int i = DateTime.Now.Year; i >= 2014; i--)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <button type="submit" class="btn btn-primary">Submit </button>
+                </div>
+            </div>
+        </form>
+        @if (!string.IsNullOrEmpty(Model.CategoryWithHighestSales.category))
+        {
+            <script>document.querySelector('input[name="option"]:checked').value = "year";
+                document.getElementById("yearBlock").style.display = "block";
+                document.getElementById("monthBlock").style.display = "none";</script>
+            <div class="card border-success mx-auto mb-3" style="max-width: 30rem;">
+                <div class="card-header text-center">Most Sold category for @Model.givenYear</div>
+                <div class="card-body text-success text-center">
+                    <h2 class="card-title">@Model.CategoryWithHighestSales.category</h2>
+                </div>
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(Model.givenYear))
+        {
+            <div class="alert alert-danger" role="alert">
+                Error getting most sold category for @Model.givenYear.
+            </div>
+        }
+    </div>
+
+    <div id="monthBlock" style="display: none;">
+        <!-- Block content for month -->
+        <form method="get" action="" class="form" id="category-form">
+            <div class="row d-flex justify-content-center">
+                <div class="col-4">
+                    <div class="form-group">
+                        <select class="form-control" id="year" name="year">
+                            <option value="">--Select Year--</option>
+                            @for (int i = DateTime.Now.Year; i > 2014; i--)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <select class="form-control" id="month" name="month">
+                            <option value="">--Select Month--</option>
+                            @for (int j = 1; j <= 12; j++)
+                            {
+                                <option value="@j">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(j)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <button type="submit" class="btn btn-primary">Submit </button>
+                </div>
+            </div>
+        </form>
+        @if (!string.IsNullOrEmpty(Model.givenmonth) && !string.IsNullOrEmpty(Model.CategoryWithHighestSales.category))
+        {
+            <script>document.querySelector('input[name="option"]:checked').value = "month";
+                document.getElementById("yearBlock").style.display = "none";
+                document.getElementById("monthBlock").style.display = "block";</script>
+            <div class="card border-success mx-auto mb-3" style="max-width: 30rem;">
+                <div class="card-header text-center">Most Sold category for @Model.givenmonth in the year @Model.givenYear</div>
+                <div class="card-body text-success text-center">
+                    <h2 class="card-title">@Model.CategoryWithHighestSales.category</h2>
+                </div>
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(Model.givenYear) && !string.IsNullOrEmpty(Model.givenmonth))
+        {
+            <div class="alert alert-danger" role="alert">
+                Error getting most sold category for @Model.givenmonth.
+            </div>
+        }
+    </div>
+
+    <script>function showBlock() {
+            var option = document.querySelector('input[name="option"]:checked').value;
+            if (option === "year") {
+                document.getElementById("yearBlock").style.display = "block";
+                document.getElementById("monthBlock").style.display = "none";
+            } else if (option === "month") {
+                document.getElementById("yearBlock").style.display = "none";
+                document.getElementById("monthBlock").style.display = "block";
+            }
+        }</script>
+
+</div>

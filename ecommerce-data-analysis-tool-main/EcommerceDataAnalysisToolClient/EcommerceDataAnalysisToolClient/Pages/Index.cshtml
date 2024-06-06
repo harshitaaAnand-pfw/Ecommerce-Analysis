@@ -1,0 +1,52 @@
+﻿@page
+@model EcommerceDataAnalysisToolClient.Pages.EcommerceDataAnalysisTool.IndexModel
+@{
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Ecommerce Sales Data</h1>
+</div>
+<div class="text-left">
+    <a class='btn btn-primary btn-sm' href='/EcommerceDataAnalysisTool/add'>Add Ecommerce</a>
+    <button class="btn btn-secondary btn-sm" onclick="window.scrollTo(0,document.body.scrollHeight);">Go to Bottom</button>
+</div>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>ProductName</th>
+            <th>ProductCategory</th>
+            <th>Price</th>
+            <th>Brand</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Ecommerce)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Date</td>
+                <td>@item.ProductName</td>
+                <td>@item.ProductCategory</td>
+                <td>@item.Price$</td>
+                <td>@item.Brand</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/EcommerceDataAnalysisTool/EditSalesData?id=@item.Id">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="/EcommerceDataAnalysisTool/Delete?id=@item.Id">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+<div>
+    <button class="btn btn-secondary btn-sm" onclick="window.scrollTo(0, 0);">Go to top</button>
+</div>
+

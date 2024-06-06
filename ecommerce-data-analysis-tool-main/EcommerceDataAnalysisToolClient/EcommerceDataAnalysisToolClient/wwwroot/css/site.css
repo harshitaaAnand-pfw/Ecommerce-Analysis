@@ -1,0 +1,45 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.card {
+    background-color: #fff;
+    color: #333;
+    border-radius: 15px;
+    padding: 40px 50px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.card h2 {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.card form {
+    margin: auto;
+    }
+
+.button-group button {
+    display: grid;
+    padding: 20px;
+    margin: 4px;
+    width: 100%;
+    border-radius: 10px;
+}
